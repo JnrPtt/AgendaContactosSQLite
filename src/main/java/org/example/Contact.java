@@ -6,7 +6,7 @@ public class Contact {
     private String telefono;
     private String email;
 
-    public Contact(String nombre, String telefono, String email) {
+    public Contact(int id, String nombre, String telefono, String email) {
         this.id = id;
         this.nombre = nombre;
         this.telefono = telefono;

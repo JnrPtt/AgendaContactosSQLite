@@ -18,7 +18,7 @@ public class DatabaseManager {
                         id INTEGER PRIMARY KEY AUTOINCREMENT,
                         nombre TEXT NOT NULL,
                         telefono TEXT NOT NULL,
-                        email TEXT NOT NULL
+                        email TEXT
                     );
                 """;
 
