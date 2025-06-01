@@ -114,8 +114,15 @@ public class CLIManager {
 
     public void eliminarContacto() {
         System.out.print("Introduce el id del contacto a eliminar: ");
-        int contactId = scanner.nextInt();
-        scanner.nextLine();
+        String idInput = scanner.nextLine();
+        int contactId;
+
+        try {
+            contactId = Integer.parseInt(idInput);
+        }   catch (NumberFormatException e) {
+            System.err.println("ID inválido. Introduzca un numero");
+            return;
+        }
 
         contactManager.deleteContact(contactId);
     }
