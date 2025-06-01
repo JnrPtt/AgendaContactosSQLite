@@ -1,6 +1,5 @@
 package org.example;
 
-import javax.xml.crypto.Data;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -52,22 +51,23 @@ public class ContactManager {
         String sql = "SELECT * FROM contactos WHERE nombre LIKE ?";
 
         try (Connection conn = DatabaseManager.connect();
-             PreparedStatement pstmt = conn.prepareStatement(sql);
-             ResultSet rs = pstmt.executeQuery();) {
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setString(1, search);
+            pstmt.setString(1, "%" + search + "%");
 
-            while (rs.next()) {
-                Contact contact = new Contact(
-                        rs.getInt("id"),
-                        rs.getString("nombre"),
-                        rs.getString("telefono"),
-                        rs.getString("email")
-                );
-                contacts.add(contact);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    Contact contact = new Contact(
+                            rs.getInt("id"),
+                            rs.getString("nombre"),
+                            rs.getString("telefono"),
+                            rs.getString("email")
+                    );
+                    contacts.add(contact);
+                }
             }
         }   catch (SQLException e) {
-            System.err.println("Error al buscar contacto" + e.getMessage());
+            System.err.println("Error al buscar contacto: " + e.getMessage());
         }
         return contacts;
     }
@@ -93,7 +93,7 @@ public class ContactManager {
             System.err.println("Error al actualizar contacto" + e.getMessage());
         }
     }
-    
+
     public void deleteContact(int contactId) {
         String sql = "DELETE FROM contactos WHERE id = ?";
 

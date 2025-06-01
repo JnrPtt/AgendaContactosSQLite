@@ -15,7 +15,7 @@ public class DatabaseManager {
     public static void initializeDatabase() {
         String sql = """
                     CREATE TABLE IF NOT EXISTS contactos (
-                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
                         nombre TEXT NOT NULL,
                         telefono TEXT NOT NULL,
                         email TEXT
